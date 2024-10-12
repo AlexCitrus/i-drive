@@ -2,7 +2,7 @@
 
 ## Overview
 
-IRide Driver App is a simplified ride-sharing driver mobile application built using React Native and Redux. This app allows drivers to view nearby ride requests and accept or decline them.
+IRide Driver App is a simplified ride-sharing driver mobile application built using React Native and Redux. This app allows drivers to view nearby ride requests, accept or decline them, and manage ongoing rides.
 
 ## Core Features
 
@@ -19,13 +19,14 @@ IRide Driver App is a simplified ride-sharing driver mobile application built us
 
 3. **Redux Implementation**
 
-   - Manages driver location, nearby ride requests, and selected ride
+   - Manages driver location, nearby ride requests, selected ride, and completed rides
    - Implements actions, reducers, and selectors for state management
 
 4. **Functionality**
 
-   - Enables drivers to view and select ride requests
-   - Updates selected ride in the Redux store
+   - Enables drivers to view, select, accept, and decline ride requests
+   - Allows drivers to start rides and drop off riders
+   - Updates ride status in the Redux store
 
 5. **UI/UX**
 
@@ -36,10 +37,17 @@ IRide Driver App is a simplified ride-sharing driver mobile application built us
 
    - Uses device GPS to track driver's current location
    - Updates map view based on driver's movement
+   - Reverse geocoding to get addresses from coordinates
 
 7. **Map Integration**
+
    - Implements Google Maps API for map rendering and directions
    - Displays route from driver's location to pickup point and destination
+
+8. **Ride Management**
+   - Tracks ride status (e.g., accepted, started, completed)
+   - Provides options to accept, decline, start, and complete rides
+   - Stores completed ride information
 
 ## Getting Started
 
@@ -64,6 +72,7 @@ IRide Driver App is a simplified ride-sharing driver mobile application built us
 - React Navigation
 - React Native Maps
 - Google Maps API
+- Expo Location
 
 ## Project Structure
 
@@ -71,6 +80,8 @@ IRide Driver App is a simplified ride-sharing driver mobile application built us
 - `components/`: Reusable UI components
 - `slices/`: Redux slices for state management
 - `contexts/`: React Context providers (e.g., LocationContext)
+- `hooks/`: Custom React hooks (e.g., useAddress)
+- `util/`: Utility functions and constants
 - `store.js`: Redux store configuration
 - `App.js`: Main application component
 
