@@ -6,16 +6,16 @@ import {
   TouchableOpacity,
   FlatList
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import tw from "tailwind-react-native-classnames";
 import { Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { setRide, selectNearbyRides, selectRide } from "../../slices/navSlice";
-import calculateDistance from "../../util/calculateDistance";
 import { useLocation } from "../../contexts/LocationContext";
 import useAddress from "../../hooks/useAddress";
 import { RIDE_STATUS } from "../../util/constants";
+import RiderItem from "../resources/RiderItem";
 
 const NavigateCard = () => {
   const navigation = useNavigation();
@@ -23,8 +23,9 @@ const NavigateCard = () => {
 
   const nearbyRides = useSelector(selectNearbyRides);
   const selectedRide = useSelector(selectRide);
-  const { currentLocation } = useLocation();
+  const { currentLocation, fetchLocationAndRides } = useLocation();
   const { getAddressFromCoordinates } = useAddress();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleRideSelection = async (item) => {
     let destinationAddress = "Unknown destination";
@@ -52,6 +53,25 @@ const NavigateCard = () => {
     selectedRide &&
     (selectedRide.status === RIDE_STATUS.ACCEPTED ||
       selectedRide.status === RIDE_STATUS.STARTED);
+
+  const handleFetchNearbyRides = async () => {
+    if (currentLocation) {
+      setIsLoading(true);
+      try {
+        await fetchLocationAndRides();
+      } catch (error) {
+        console.error("Error fetching nearby rides:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (currentLocation && nearbyRides.length === 0) {
+      handleFetchNearbyRides();
+    }
+  }, [currentLocation]);
 
   return (
     <SafeAreaView style={tw`bg-white flex-grow`}>
@@ -90,28 +110,34 @@ const NavigateCard = () => {
           </TouchableOpacity>
         </View>
       ) : currentLocation ? (
-        <FlatList
-          data={nearbyRides}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
+        nearbyRides.length > 0 ? (
+          <FlatList
+            data={nearbyRides}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <RiderItem
+                item={item}
+                onPress={handleRideSelection}
+                currentLocation={currentLocation}
+              />
+            )}
+          />
+        ) : (
+          <View style={tw`flex-1 justify-center items-center p-5`}>
+            <Text style={tw`text-lg font-semibold mb-4`}>
+              No nearby rides found
+            </Text>
             <TouchableOpacity
-              style={tw`border-b border-gray-200 p-4`}
-              onPress={() => handleRideSelection(item)}
+              style={tw`bg-black py-3 px-8 rounded-full`}
+              onPress={handleFetchNearbyRides}
+              disabled={isLoading}
             >
-              <Text style={tw`font-semibold text-lg`}>{item.userName}</Text>
-              <Text>{item.address}</Text>
-              <Text>
-                {calculateDistance(
-                  currentLocation.latitude,
-                  currentLocation.longitude,
-                  item.pickupLocation.latitude,
-                  item.pickupLocation.longitude
-                )}{" "}
-                km away
+              <Text style={tw`text-white font-semibold`}>
+                {isLoading ? "Searching..." : "Search for Rides"}
               </Text>
             </TouchableOpacity>
-          )}
-        />
+          </View>
+        )
       ) : (
         <Text style={tw`text-center py-5`}>Please set your location first</Text>
       )}

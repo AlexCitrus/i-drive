@@ -277,7 +277,8 @@ export const LocationProvider = ({ children }) => {
         onAcceptRide,
         onDeclineRide,
         onStartRide,
-        onDropOffRider
+        onDropOffRider,
+        fetchLocationAndRides
       }}
     >
       {children}
