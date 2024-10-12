@@ -1,29 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
-import { useSelector } from "react-redux";
-import { selectOrigin } from "../slices/navSlice";
+
+import tw from "tailwind-react-native-classnames";
+import NavOptions from "../components/NavOptions";
 
 const HomeScreen = () => {
-  const origin = useSelector(selectOrigin);
-
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
+    <SafeAreaView style={tw`bg-white h-full`}>
+      <View style={tw`p-5`}>
         <Image
           style={styles.logo}
           source={{
             uri: "https://i.ibb.co/HnVqZBg/test.jpg"
           }}
         />
-      </View>
-
-      <View style={styles.content}>
-        <Text style={styles.title}>Welcome to Wingz</Text>
-        {origin ? (
-          <Text>Your origin: {origin.description}</Text>
-        ) : (
-          <Text>Set your origin to get started</Text>
-        )}
+        <NavOptions />
       </View>
     </SafeAreaView>
   );

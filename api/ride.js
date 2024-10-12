@@ -4,12 +4,12 @@ export const fetchNearbyRideRequests = async (latitude, longitude) => {
   return [
     {
       id: "1",
-      userId: "user1",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
       userName: "John Doe",
       driverId: null,
       pickupLocation: {
-        latitude: latitude + 0.01,
-        longitude: longitude + 0.01
+        latitude: latitude + 0.001,
+        longitude: longitude + 0.02
       },
       destination: { latitude: latitude + 0.02, longitude: longitude + 0.02 },
       status: "pending",
@@ -18,7 +18,7 @@ export const fetchNearbyRideRequests = async (latitude, longitude) => {
     },
     {
       id: "2",
-      userId: "user2",
+      userId: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
       userName: "Jane Smith",
       driverId: null,
       pickupLocation: {
@@ -32,7 +32,7 @@ export const fetchNearbyRideRequests = async (latitude, longitude) => {
     },
     {
       id: "3",
-      userId: "user3",
+      userId: "6ba7b811-9dad-11d1-80b4-00c04fd430c8",
       userName: "Bob Johnson",
       driverId: null,
       pickupLocation: {
@@ -56,7 +56,7 @@ export const updateRideStatus = async (rideId, newStatus) => {
   // Return a mock updated ride object
   return {
     id: rideId,
-    userId: "user1",
+    userId: "550e8400-e29b-41d4-a716-446655440000",
     userName: "John Doe",
     driverId: "driver1",
     pickupLocation: {
