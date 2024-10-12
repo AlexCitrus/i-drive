@@ -2,8 +2,7 @@ import React from "react";
 import { FlatList, Text, TouchableOpacity, View, Image } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Icon } from "react-native-elements";
-import { useSelector } from "react-redux";
-import { selectOrigin } from "../slices/navSlice";
+
 import { useNavigation } from "@react-navigation/native";
 
 const data = [
@@ -13,11 +12,16 @@ const data = [
     image:
       "https://i.ibb.co/ygXHtZf/Pngtree-business-person-illustration-commuting-to-3785096.png",
     screen: "MapScreen"
+  },
+  {
+    id: "456",
+    title: "My Rides",
+    image: "https://i.ibb.co/5RjchBg/car-icon.png",
+    screen: "History"
   }
 ];
 
 const NavOptions = () => {
-  const origin = useSelector(selectOrigin);
   const navigation = useNavigation();
 
   const onPress = (item) => navigation.navigate(item.screen);
@@ -30,16 +34,16 @@ const NavOptions = () => {
       renderItem={({ item }) => (
         <TouchableOpacity
           onPress={() => onPress(item)}
-          style={tw`p-4 pl-8 pb-10 pt-6 bg-gray-200 m-2 w-80`}
+          style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
         >
           <View>
             <Image
-              style={{ width: 240, height: 240, resizeMode: "contain" }}
+              style={{ width: 120, height: 120, resizeMode: "contain" }}
               source={{ uri: item.image }}
             />
-            <Text style={tw`mt-4 text-xl font-semibold`}>{item.title}</Text>
+            <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
             <Icon
-              style={tw`p-3 bg-black rounded-full w-14 mt-6`}
+              style={tw`p-2 bg-black rounded-full w-10 mt-4`}
               name="arrowright"
               color="white"
               type="antdesign"

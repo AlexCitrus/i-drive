@@ -1,12 +1,12 @@
 import React from "react";
 import { View } from "react-native";
 import tw from "tailwind-react-native-classnames";
-import Map from "../components/Map";
+import Map from "../components/common/Map";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import NavigateCard from "../components/NavigateCard";
+import NavigateCard from "../components/common/NavigateCard";
 
-import RideDetails from "../components/RideDetails";
+import RideDetails from "../components/common/RideDetails";
 const MapScreen = () => {
   const Stack = createNativeStackNavigator();
   return (

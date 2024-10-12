@@ -5,7 +5,8 @@ const initialState = {
   destination: null,
   travelTimeInformation: null,
   nearbyRides: [],
-  ride: null
+  ride: null,
+  completedRides: []
 };
 
 export const navSlice = createSlice({
@@ -26,6 +27,9 @@ export const navSlice = createSlice({
     },
     setNearbyRides: (state, action) => {
       state.nearbyRides = action.payload;
+    },
+    addCompletedRide: (state, action) => {
+      state.completedRides.push(action.payload);
     }
   }
 });
@@ -35,7 +39,8 @@ export const {
   setDestination,
   setTravelTimeInformation,
   setRide,
-  setNearbyRides
+  setNearbyRides,
+  addCompletedRide
 } = navSlice.actions;
 
 // Selectors
@@ -45,5 +50,6 @@ export const selectTravelTimeInformation = (state) =>
   state.nav.travelTimeInformation;
 export const selectRide = (state) => state.nav.ride;
 export const selectNearbyRides = (state) => state.nav.nearbyRides;
+export const selectCompletedRides = (state) => state.nav.completedRides;
 
 export default navSlice.reducer;
