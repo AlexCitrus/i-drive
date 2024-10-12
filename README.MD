@@ -50,6 +50,12 @@ IRide Driver App is a simplified ride-sharing driver mobile application built us
    - Add your Google Maps API key: `GOOGLE_MAPS_API_KEY=your_api_key_here`
    - Note: The API key will be sent through Gmail using the email pasoquinalexander@gmail.com
 4. Run the app: `yarn start`
+5. Choose your preferred method to run the app:
+   - For iOS simulator: Press `i` in the terminal
+   - For Android simulator: Press `a` in the terminal
+   - For running on an actual device:
+     - Download the Expo Go app on your device
+     - Scan the QR code displayed in the terminal
 
 ## Technologies Used
 
